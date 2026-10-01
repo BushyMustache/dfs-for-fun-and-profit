@@ -129,6 +129,19 @@ public class Practice {
    * @return true if all reachable vertices hold odd values, false otherwise
    */
   public boolean allOdd(Vertex<Integer> vertex) {
+    Set<Vertex<Integer>> visited = new HashSet<>();
+    return allOdd(vertex, visited);
+  }
+
+  private static boolean allOdd(Vertex<Integer> current, Set<Vertex<Integer>> visited) {
+    if (current == null || visited.contains(current)) return true;
+    visited.add(current);
+    if (current.data % 2 == 0) return false;
+
+    for (Vertex<Integer> neighbor : current.neighbors) {
+      if (!allOdd(neighbor, visited)) return false;
+    }
+
     return true;
   }
 
