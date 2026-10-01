@@ -97,7 +97,24 @@ public class Practice {
    * @return A set containing all reachable leaf vertices, or an empty set if vertex is null.
    */
   public <T> Set<Vertex<T>> leaves(Vertex<T> vertex) {
-    return null;
+    Set<Vertex<T>> leaves = new HashSet<>();
+    Set<Vertex<T>> visited = new HashSet<>();
+    leaves(vertex, leaves, visited);
+    return leaves;
+  }
+
+  private static <T> void leaves(Vertex<T> current, Set<Vertex<T>> leaves, Set<Vertex<T>> visited) {
+    if (current == null || visited.contains(current)) return;
+    visited.add(current);
+
+    if (current.neighbors.isEmpty()) {
+      leaves.add(current);
+      return;
+    }
+
+    for (Vertex<T> neighbor : current.neighbors) {
+      leaves(neighbor, leaves, visited);
+    }
   }
 
 
